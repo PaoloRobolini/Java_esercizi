@@ -1,0 +1,88 @@
+INIZIAMO
+43
+Qual è la capitale della Spagna?
+Madrid;Barcellona;Siviglia;Valencia;4
+Chi ha scritto 'Romeo e Giulietta'?
+Shakespeare;Dante;Petrarca;Boccaccio;4
+Quanto fa 12 ÷ 4?
+3;6;2;8;4
+Qual è il simbolo chimico dell'argento?
+Ag;Au;Fe;Hg;4
+Chi ha dipinto 'La Notte Stellata'?
+Van Gogh;Picasso;Monet;Dalí;4
+Qual è l'animale più veloce sulla terra?
+Ghepardo;Elefante;Cavallo;Leone;4
+In quale continente si trova il deserto del Sahara?
+Africa;Asia;Europa;America;4
+Chi ha inventato la lampadina?
+Edison;Tesla;Franklin;Bell;4
+Quanto fa 9 × 6?
+54;45;52;60;4
+Qual è il pianeta più vicino al Sole?
+Mercurio;Marte;Terra;Giove;4
+Chi ha scoperto l'America?
+Colombo;Magellano;Cook;Vespucci;4
+Qual è l'anno di fondazione di Roma?
+753 a.C.;476 a.C.;1000 a.C.;753 a.C.;1
+Qual è l'organo principale del sistema nervoso umano?
+Cervello;Fegato;Cuore;Stomaco;4
+In quale paese si trova la Torre Eiffel?
+Francia;Italia;Spagna;Germania;4
+Chi è conosciuto come il padre della fisica moderna?
+Einstein;Galileo;Newton;Tesla;4
+Quanto fa 1000 ÷ 25?
+40;25;30;35;4
+Qual è la lingua ufficiale del Brasile?
+Portoghese;Inglese;Francese;Spagnolo;4
+Chi ha scritto 'Il Piccolo Principe'?
+Saint-Exupéry;Verne;Hugo;Zola;4
+In che anno è stata firmata la Dichiarazione d'Indipendenza americana?
+1776;1778;1780;1775;2
+Qual è la montagna più alta del mondo?
+Everest;K2;Kilimangiaro;Monte Bianco;4
+Chi ha composto la Sinfonia n. 9?
+Beethoven;Bach;Mozart;Chopin;4
+Qual è la valuta del Giappone?
+Yen;Won;Dollaro;Yuan;4
+Quanto fa 15 × 3?
+45;50;60;30;2
+Qual è il simbolo chimico del ferro?
+Fe;Hg;Ag;Au;2
+In quale città si trovano il Colosseo e il Foro Romano?
+Roma;Napoli;Milano;Firenze;4
+Chi ha scritto '1984'?
+Orwell;Asimov;Huxley;Bradbury;3
+Qual è il paese più grande del mondo per superficie?
+Russia;USA;Cina;Canada;4
+Quanto fa 144 ÷ 12?
+12;13;10;11;3
+Chi ha dipinto 'L'Ultima Cena'?
+Leonardo;Raffaello;Caravaggio;Michelangelo;4
+Qual è il pianeta conosciuto come il Pianeta Rosso?
+Marte;Venere;Giove;Saturno;4
+Chi ha sviluppato la teoria della relatività?
+Einstein;Galileo;Newton;Curie;4
+In che anno è iniziata la Seconda Guerra Mondiale?
+1939;1935;1937;1938;4
+Qual è la capitale del Canada?
+Ottawa;Toronto;Vancouver;Montreal;4
+Qual è l'oceano più grande del mondo?
+Pacifico;Atlantico;Indiano;Artico;4
+Quanto fa 64 ÷ 8?
+8;9;6;7;3
+Chi ha scritto 'Orgoglio e Pregiudizio'?
+Austen;Shelley;Woolf;Bronte;2
+Qual è la capitale della Germania?
+Berlino;Francoforte;Amburgo;Monaco;3
+Chi ha composto 'Le Quattro Stagioni'?
+Vivaldi;Bach;Beethoven;Chopin;4
+Qual è il simbolo chimico del carbonio?
+C;Ca;Co;Cu;1
+In quale continente si trova l'Argentina?
+America;Europa;Asia;Africa;4
+Chi ha scritto 'Amleto'?
+Shakespeare;Dante;Petrarca;Boccaccio;4
+Quanto fa 81 ÷ 9?
+9;10;7;8;3
+Qual è la capitale del Giappone?
+Tokyo;Osaka;Kyoto;Hiroshima;4
