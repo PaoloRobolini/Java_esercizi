@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="robolini.paolo.pallavolo.PallavoloController">
+   <left>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblCasa" text="0">
+               <font>
+                  <Font size="128.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnCasaOnClick" prefHeight="77.0" prefWidth="200.0" text="Casa" textAlignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Label fx:id="lblSetCasa" layoutX="126.0" layoutY="79.0" text="0">
+               <font>
+                  <Font size="60.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblTrasferta" text="0">
+               <font>
+                  <Font size="128.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnTrasfertaOnClick" prefHeight="77.0" prefWidth="200.0" text="Trasferta">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Label fx:id="lblSetTrasferta" layoutX="126.0" layoutY="79.0" text="0">
+               <font>
+                  <Font size="60.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
