@@ -146,12 +146,12 @@
                </Label>
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                   <children>
-                     <TextField fx:id="txfLuogoNascita" alignment="CENTER" promptText="Luogo di nascita">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </TextField>
-                     <ComboBox fx:id="cmbComuni" editable="true" prefWidth="150.0" promptText="Luogo di nascita" />
+                     <VBox alignment="CENTER" prefHeight="95.0" prefWidth="445.0">
+                        <children>
+                           <ComboBox fx:id="cmbStati" disable="true" editable="true" prefWidth="150.0" promptText="Luogo di nascita" />
+                           <ComboBox fx:id="cmbComuni" editable="true" prefWidth="150.0" promptText="Luogo di nascita" />
+                        </children>
+                     </VBox>
                   </children>
                </HBox>
             </children>

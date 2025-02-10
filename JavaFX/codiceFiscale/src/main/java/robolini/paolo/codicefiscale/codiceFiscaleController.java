@@ -19,6 +19,7 @@ public class codiceFiscaleController {
     public CheckBox chbNatoEstero;
     public TextField txfLuogoNascita;
     public ComboBox cmbComuni;
+    public ComboBox cmbStati;
     @FXML
     private Label lblCodiceCalcolato;
     @FXML
@@ -33,13 +34,23 @@ public class codiceFiscaleController {
         filtroCose = new FilteredList<>(listaOsservabile, p -> true);
         cmbComuni.setItems(filtroCose);
         cmbComuni.setEditable(true);
-        TextField editor = cmbComuni.getEditor();
-        editor.textProperty().addListener((obs, oldValue, newValue) -> {
-            filtroCose.setPredicate(comune -> comune.toLowerCase().contains(newValue.toLowerCase()));
-            if (!filtroCose.isEmpty()) {
-                cmbComuni.show();
-            }
-        });
+
+        chbNatoEstero.setSelected(false);
+        selezionaNascitaItalia();
+    }
+
+    private void selezionaNascitaItalia(){
+        cmbStati.setVisible(false);
+        cmbStati.setDisable(true);
+        cmbComuni.setDisable(false);
+        cmbComuni.setVisible(true);
+    }
+    
+    private void selezionaNascitaEstero(){
+        cmbStati.setVisible(true);
+        cmbStati.setDisable(false);
+        cmbComuni.setDisable(true);
+        cmbComuni.setVisible(false);
     }
 
     @FXML
@@ -47,19 +58,30 @@ public class codiceFiscaleController {
 
         String nome = txfNome.getText();
         String cognome = txfCognome.getText();
-        boolean is_maschio = rdbMaschio.isSelected();
+        boolean isMaschio = rdbMaschio.isSelected();
         boolean natoEstero = chbNatoEstero.isSelected();
         LocalDate dataDiNascita = dtpDataDiNascita.getValue();
 
-        String nomeComune = "Moldavia";
+        String LuogoNascita = "";
 
-        codiceFiscaleCalcolatore calcolatore = new codiceFiscaleCalcolatore(nome, cognome, dataDiNascita, is_maschio, nomeComune,
+        if (natoEstero){
+            LuogoNascita = (String)cmbStati.getValue();
+        } else {
+            LuogoNascita = (String)cmbComuni.getValue();
+        }
+
+
+        codiceFiscaleCalcolatore calcolatore = new codiceFiscaleCalcolatore(nome, cognome, dataDiNascita, isMaschio, LuogoNascita,
                 natoEstero,"C:\\Users\\73208584\\Desktop\\JavaFX\\codiceFiscale\\comuni.csv",
                 "C:\\Users\\73208584\\Desktop\\JavaFX\\codiceFiscale\\stati.csv");
-        lblCodiceCalcolato.setText(calcolatore.getCodiceFiscale());
+        lblCodiceCalcolato.setText(calcolatore.calcolaCodiceFiscaleCompleto());
     }
 
     public void onNascitaEsteroClick(ActionEvent actionEvent) {
-        
+        if (!cmbStati.isDisabled()){
+            selezionaNascitaItalia();
+        } else {
+            selezionaNascitaEstero();
+        }
     }
 }
