@@ -156,35 +156,36 @@ public class codiceFiscaleCalcolatore {
     }
 
     public char calcolaCarattereControllo() {
-        String codiceFiscaleSenzaControllo = getCodiceFiscaleParziale();
-        if (codiceFiscaleSenzaControllo == null || codiceFiscaleSenzaControllo.length() != 15) {
-            throw new IllegalArgumentException("Il codice fiscale deve essere lungo 15 caratteri.");
-        }
+        String codiceFiscaleParziale = getCodiceFiscaleParziale();
 
-        String valoriPari = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int[] valoriDispari = {
+        // Mappatura dei valori per posizioni dispari
+        int[] valoriDispari = {1, 0, 5, 7, 9, 13, 15, 17, 19, 21,
                 1, 0, 5, 7, 9, 13, 15, 17, 19, 21,
                 1, 0, 5, 7, 9, 13, 15, 17, 19, 21,
-                1, 0, 5, 7, 9, 13, 15, 17, 19, 21,
-                1, 0, 5, 7, 9, 13
-        };
+                1, 0, 5, 7, 9, 13, 15, 17, 19, 21};
+
+        // Mappatura dei valori per posizioni pari
+        int[] valoriPari = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                20, 21, 22, 23, 24, 25};
 
         int somma = 0;
-        for (int i = 0; i < 15; i++) {
-            char c = codiceFiscaleSenzaControllo.charAt(i);
-            int valore = valoriPari.indexOf(c);
-
-            if (valore == -1) {
-                throw new IllegalArgumentException("Carattere non valido nel codice fiscale.");
+        for (int i = 0; i < codiceFiscaleParziale.length(); i++) {
+            char carattere = codiceFiscaleParziale.charAt(i);
+            int valore;
+            if (Character.isDigit(carattere)) {
+                valore = carattere - '0'; // Converti in numero
+            } else {
+                valore = carattere - 'A'; // Converti in indice (A=0, ..., Z=25)
             }
 
-            if (i % 2 == 0) {
+            if ((i + 1) % 2 == 0) { // Posizione pari (1-based)
+                somma += valoriPari[valore];
+            } else { // Posizione dispari (1-based)
                 somma += valoriDispari[valore];
-            } else {
-                somma += valore;
             }
         }
-
         int resto = somma % 26;
         return (char) ('A' + resto);
     }

@@ -146,10 +146,10 @@
                </Label>
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                   <children>
-                     <VBox alignment="CENTER" prefHeight="95.0" prefWidth="445.0">
+                     <VBox fx:id="vboxluogonascita" alignment="CENTER" prefHeight="95.0" prefWidth="445.0">
                         <children>
-                           <ComboBox fx:id="cmbStati" disable="true" editable="true" prefWidth="150.0" promptText="Luogo di nascita" />
-                           <ComboBox fx:id="cmbComuni" editable="true" prefWidth="150.0" promptText="Luogo di nascita" />
+                           <ComboBox fx:id="cmbStatoNascita" editable="true" prefWidth="150.0" promptText="Luogo di nascita" />
+                           <ComboBox fx:id="cmbComuneNascita" editable="true" prefWidth="150.0" promptText="Luogo di nascita" />
                         </children>
                      </VBox>
                   </children>
@@ -169,7 +169,7 @@
          <Insets top="25.0" />
       </VBox.margin></Button>
 
-          <Label fx:id="lblCodiceCalcolato" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="223.0" text="RBLPLA07L07B157G">
+          <Label fx:id="lblCodiceCalcolato" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="521.0">
       <font>
          <Font size="24.0" />
       </font>

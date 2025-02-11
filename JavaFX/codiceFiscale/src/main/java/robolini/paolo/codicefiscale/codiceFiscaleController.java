@@ -6,9 +6,11 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Set;
 
 public class codiceFiscaleController {
     public TextField txfNome;
@@ -17,9 +19,10 @@ public class codiceFiscaleController {
     public RadioButton rdbFemmina;
     public DatePicker dtpDataDiNascita;
     public CheckBox chbNatoEstero;
-    public TextField txfLuogoNascita;
-    public ComboBox cmbComuni;
-    public ComboBox cmbStati;
+    public ComboBox cmbLuogoNascita;
+    public ComboBox cmbStatoNascita;
+    public ComboBox cmbComuneNascita;
+    public VBox vboxluogonascita;
     @FXML
     private Label lblCodiceCalcolato;
     @FXML
@@ -28,29 +31,46 @@ public class codiceFiscaleController {
     private ObservableList<String> listaOsservabile;
     private FilteredList<String> filtroCose;
 
+    boolean natoEstero = false;
+
     @FXML
     public void initialize() throws IOException {
-        listaOsservabile = FXCollections.observableArrayList(ComuniRepository.getInstance("C:\\Users\\73208584\\Desktop\\JavaFX\\codiceFiscale\\comuni.csv").keySet());
-        filtroCose = new FilteredList<>(listaOsservabile, p -> true);
-        cmbComuni.setItems(filtroCose);
-        cmbComuni.setEditable(true);
-
+        cmbStatoNascita.getItems().add(StatiRepository.getInstance("stati.csv").keySet());
+        cmbComuneNascita.getItems().add(ComuniRepository.getInstance("comuni.csv").keySet());
         chbNatoEstero.setSelected(false);
-        selezionaNascitaItalia();
+        rdbMaschio.setSelected(true);
+
+        filtraCmb(cmbComuneNascita, ComuniRepository.getInstance("comuni.csv").keySet());
+        filtraCmb(cmbStatoNascita, StatiRepository.getInstance("stati.csv").keySet());
+
+        vboxluogonascita.getChildren().remove(cmbStatoNascita);
     }
 
-    private void selezionaNascitaItalia(){
-        cmbStati.setVisible(false);
-        cmbStati.setDisable(true);
-        cmbComuni.setDisable(false);
-        cmbComuni.setVisible(true);
-    }
-    
-    private void selezionaNascitaEstero(){
-        cmbStati.setVisible(true);
-        cmbStati.setDisable(false);
-        cmbComuni.setDisable(true);
-        cmbComuni.setVisible(false);
+    @FXML
+    private void filtraCmb(ComboBox<String> cmb, Set<String> elenco) {
+        ObservableList<String> osservabile = FXCollections.observableArrayList(elenco);
+
+        FilteredList<String> filtrata = new FilteredList<>(osservabile, p -> true);
+
+        cmb.setItems(filtrata);
+
+        cmb.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            final TextField editor = cmb.getEditor();
+            final String selected = cmb.getSelectionModel().getSelectedItem();
+
+            if (selected == null || !selected.equals(editor.getText())) {
+                filtrata.setPredicate(comune -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    return comune.toLowerCase().contains(lowerCaseFilter);
+                });
+
+                cmb.show();
+            }
+        });
+
     }
 
     @FXML
@@ -62,26 +82,22 @@ public class codiceFiscaleController {
         boolean natoEstero = chbNatoEstero.isSelected();
         LocalDate dataDiNascita = dtpDataDiNascita.getValue();
 
-        String LuogoNascita = "";
-
-        if (natoEstero){
-            LuogoNascita = (String)cmbStati.getValue();
-        } else {
-            LuogoNascita = (String)cmbComuni.getValue();
-        }
+        String LuogoNascita = (String)cmbLuogoNascita.getValue();
 
 
         codiceFiscaleCalcolatore calcolatore = new codiceFiscaleCalcolatore(nome, cognome, dataDiNascita, isMaschio, LuogoNascita,
-                natoEstero,"C:\\Users\\73208584\\Desktop\\JavaFX\\codiceFiscale\\comuni.csv",
-                "C:\\Users\\73208584\\Desktop\\JavaFX\\codiceFiscale\\stati.csv");
+                natoEstero,"comuni.csv",
+                "stati.csv");
         lblCodiceCalcolato.setText(calcolatore.calcolaCodiceFiscaleCompleto());
     }
 
-    public void onNascitaEsteroClick(ActionEvent actionEvent) {
-        if (!cmbStati.isDisabled()){
-            selezionaNascitaItalia();
+    public void onNascitaEsteroClick(ActionEvent actionEvent) throws IOException {
+        if (chbNatoEstero.isSelected()){
+            vboxluogonascita.getChildren().remove(cmbComuneNascita);
+            vboxluogonascita.getChildren().add(cmbStatoNascita);
         } else {
-            selezionaNascitaEstero();
+            vboxluogonascita.getChildren().remove(cmbStatoNascita);
+            vboxluogonascita.getChildren().add(cmbComuneNascita);
         }
     }
 }
