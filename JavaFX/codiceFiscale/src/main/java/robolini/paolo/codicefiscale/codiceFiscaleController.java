@@ -82,8 +82,8 @@ public class codiceFiscaleController {
             LuogoNascita = (String)cmbStatoNascita.getValue();
         }
 
-        codiceFiscaleCalcolatore calcolatore = new codiceFiscaleCalcolatore(nome, cognome, dataDiNascita, isMaschio, LuogoNascita,
-                natoEstero,"comuni.csv",
+        codiceFiscaleCalcolatore calcolatore = new codiceFiscaleCalcolatore(nome, cognome, dataDiNascita, isMaschio, LuogoNascita, natoEstero,
+                "comuni.csv",
                 "stati.csv");
         lblCodiceCalcolato.setText(calcolatore.calcolaCodiceFiscaleCompleto());
     }
