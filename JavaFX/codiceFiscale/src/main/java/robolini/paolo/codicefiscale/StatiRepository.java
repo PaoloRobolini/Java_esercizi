@@ -24,7 +24,7 @@ public class StatiRepository {
 
             while((riga = br.readLine()) != null){
                 String[] s = riga.split(",");
-                stati.put(s[0], s[1]);
+                stati.put(s[0].toUpperCase(), s[1].toUpperCase());
             }
 
         }
