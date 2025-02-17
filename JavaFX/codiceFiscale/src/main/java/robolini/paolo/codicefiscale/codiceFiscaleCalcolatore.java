@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class codiceFiscaleCalcolatore {
@@ -45,23 +46,37 @@ public class codiceFiscaleCalcolatore {
         return (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
     }
 
-    private String calcolaCognome (){
-        StringBuilder ritorno = new StringBuilder();
-        cognome = rimuoviSpazi(cognome);
-        cognome = cognome.toUpperCase();
+    private Map<String,ArrayList<Character>> dividiVocaliConsonanti(String s){
+        StringBuilder stringBuilder
+                = new StringBuilder();
+        s = rimuoviSpazi(s);
+        s = s.toUpperCase();
         char c;
-
+        Map<String,ArrayList<Character>> ritorno = new HashMap<>();
         ArrayList<Character> consonanti = new ArrayList<>();
         ArrayList<Character> vocali = new ArrayList<>();
 
-        for(int i = 0; i < cognome.length(); ++i){
-            c = cognome.charAt(i);
+        for(int i = 0; i < s.length(); ++i){
+            c = s.charAt(i);
             if(isVocale(c)){
                 vocali.add(c);
             } else {
                 consonanti.add(c);
             }
         }
+        ritorno.put("consonanti", consonanti);
+        ritorno.put("vocali", vocali);
+        return ritorno;
+    }
+
+    private String calcolaCognome (){
+
+        Map<String,ArrayList<Character>> temp = dividiVocaliConsonanti(cognome);
+
+        ArrayList<Character> consonanti = temp.get("consonanti");
+        ArrayList<Character> vocali = temp.get("vocali");
+
+        StringBuilder ritorno = new StringBuilder();
 
         for (Character i : consonanti){
             ritorno.append(i);
@@ -78,25 +93,16 @@ public class codiceFiscaleCalcolatore {
     }
 
     private String calcolaNome (){
+
+        Map<String,ArrayList<Character>> temp = dividiVocaliConsonanti(nome);
+
+        ArrayList<Character> consonanti = temp.get("consonanti");
+        ArrayList<Character> vocali = temp.get("vocali");
+
         StringBuilder ritorno = new StringBuilder();
-        nome = rimuoviSpazi(nome);
-        nome = nome.toUpperCase();
-        char c;
 
-        ArrayList<Character> consonanti = new ArrayList<>();
-        ArrayList<Character> vocali = new ArrayList<>();
-
-        for(int i = 0; i < nome.length(); ++i){
-            c = nome.charAt(i);
-            if(isVocale(c)){
-                vocali.add(c);
-            } else {
-                consonanti.add(c);
-            }
-        }
-
-            ritorno.append(consonanti.get(0));
-            ritorno.append(consonanti.get(1));
+        ritorno.append(consonanti.get(0));
+        ritorno.append(consonanti.get(1));
 
         try{
             ritorno.append(consonanti.get(3));

@@ -19,18 +19,12 @@ public class codiceFiscaleController {
     public RadioButton rdbFemmina;
     public DatePicker dtpDataDiNascita;
     public CheckBox chbNatoEstero;
-    public ComboBox cmbLuogoNascita;
     public ComboBox cmbStatoNascita;
     public ComboBox cmbComuneNascita;
     public VBox vboxluogonascita;
     @FXML
     private Label lblCodiceCalcolato;
     @FXML
-    private TextField txfTesto;
-
-    private ObservableList<String> listaOsservabile;
-    private FilteredList<String> filtroCose;
-
     boolean natoEstero = false;
 
     @FXML
@@ -74,7 +68,7 @@ public class codiceFiscaleController {
     }
 
     @FXML
-    protected void onCalcolaButtonClick(ActionEvent actionEvent) throws IOException {
+    protected void onCalcolaButtonClick() throws IOException {
 
         String nome = txfNome.getText();
         String cognome = txfCognome.getText();
@@ -82,8 +76,11 @@ public class codiceFiscaleController {
         boolean natoEstero = chbNatoEstero.isSelected();
         LocalDate dataDiNascita = dtpDataDiNascita.getValue();
 
-        String LuogoNascita = (String)cmbLuogoNascita.getValue();
+        String LuogoNascita = (String)cmbComuneNascita.getValue();
 
+        if (natoEstero){
+            LuogoNascita = (String)cmbStatoNascita.getValue();
+        }
 
         codiceFiscaleCalcolatore calcolatore = new codiceFiscaleCalcolatore(nome, cognome, dataDiNascita, isMaschio, LuogoNascita,
                 natoEstero,"comuni.csv",
@@ -91,7 +88,8 @@ public class codiceFiscaleController {
         lblCodiceCalcolato.setText(calcolatore.calcolaCodiceFiscaleCompleto());
     }
 
-    public void onNascitaEsteroClick(ActionEvent actionEvent) throws IOException {
+    public void onNascitaEsteroClick(){
+        natoEstero = !natoEstero;
         if (chbNatoEstero.isSelected()){
             vboxluogonascita.getChildren().remove(cmbComuneNascita);
             vboxluogonascita.getChildren().add(cmbStatoNascita);

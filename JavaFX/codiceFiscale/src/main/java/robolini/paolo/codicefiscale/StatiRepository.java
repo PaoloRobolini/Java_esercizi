@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Set;
 
 public class StatiRepository {
     static private HashMap<String, String> stati;
@@ -31,8 +30,9 @@ public class StatiRepository {
         return stati;
     }
 
-    static public Set<String> getElencoStati(){
+    /*
+      static public Set<String> getElencoStati(){
         return stati.keySet();
-    }
+    } */
 
 }
