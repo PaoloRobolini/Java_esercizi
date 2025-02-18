@@ -9,6 +9,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -35,7 +36,7 @@
             <children>
                <Label alignment="CENTER" prefHeight="30.0" prefWidth="380.0" text="Inserisci il nome:">
                   <font>
-                     <Font size="25.0" />
+                     <Font name="System Bold" size="25.0" />
                   </font>
                </Label>
                <TextField fx:id="txfNome" alignment="CENTER" promptText="Nome">
@@ -55,7 +56,7 @@
             <children>
                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="371.0" text="Inserisci il cognome:">
                   <font>
-                     <Font size="25.0" />
+                     <Font name="System Bold" size="25.0" />
                   </font>
                   <VBox.margin>
                      <Insets />
@@ -81,7 +82,7 @@
             <children>
                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="425.0" text="Inserisci il sesso:">
                   <font>
-                     <Font size="25.0" />
+                     <Font name="System Bold" size="25.0" />
                   </font>
                   <VBox.margin>
                      <Insets bottom="5.0" top="5.0" />
@@ -89,7 +90,7 @@
                </Label>
                <RadioButton fx:id="rdbMaschio" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Maschio ">
                   <font>
-                     <Font size="25.0" />
+                     <Font name="System Italic" size="25.0" />
                   </font>
                   <VBox.margin>
                      <Insets />
@@ -100,7 +101,7 @@
                </RadioButton>
                <RadioButton fx:id="rdbFemmina" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Femmina" toggleGroup="$grpSesso">
                   <font>
-                     <Font size="25.0" />
+                     <Font name="System Italic" size="25.0" />
                   </font>
                   <VBox.margin>
                      <Insets bottom="10.0" top="2.0" />
@@ -112,7 +113,7 @@
             <children>
                <Label alignment="CENTER" prefHeight="17.0" prefWidth="445.0" text="Inserisci la data di nascita:">
                   <font>
-                     <Font size="25.0" />
+                     <Font name="System Bold" size="25.0" />
                   </font>
                </Label>
                <DatePicker fx:id="dtpDataDiNascita" promptText="Data di nascita">
@@ -129,7 +130,7 @@
             <children>
                <CheckBox fx:id="chbNatoEstero" mnemonicParsing="false" onAction="#onNascitaEsteroClick" text="Nascita all'estero">
                   <font>
-                     <Font size="24.0" />
+                     <Font name="System Italic" size="24.0" />
                   </font>
                </CheckBox>
             </children>
@@ -138,7 +139,7 @@
             <children>
                <Label text="Inserisci il luogo di nascita:">
                   <font>
-                     <Font size="25.0" />
+                     <Font name="System Bold" size="25.0" />
                   </font>
                   <VBox.margin>
                      <Insets bottom="10.0" />
@@ -160,8 +161,11 @@
       <VBox.margin>
          <Insets />
       </VBox.margin>
+      <effect>
+         <Blend />
+      </effect>
    </GridPane>
-    <Button onAction="#onCalcolaButtonClick" prefHeight="49.0" prefWidth="94.0" text="Calcola">
+    <Button onAction="#onCalcolaButtonClick" prefHeight="49.0" prefWidth="114.0" text="Calcola">
       <font>
          <Font size="19.0" />
       </font>
@@ -169,7 +173,7 @@
          <Insets top="25.0" />
       </VBox.margin></Button>
 
-          <Label fx:id="lblCodiceCalcolato" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="521.0">
+          <Label fx:id="lblCodiceCalcolato" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="521.0" textFill="#c63737">
       <font>
          <Font size="24.0" />
       </font>

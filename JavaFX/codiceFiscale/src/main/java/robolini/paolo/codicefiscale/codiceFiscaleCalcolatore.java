@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
+/**
+ * Classe che calcola il codice fiscale
+ */
 public class codiceFiscaleCalcolatore {
 
     private String nome;
@@ -14,22 +16,32 @@ public class codiceFiscaleCalcolatore {
     private final LocalDate dataDiNascita;
     private final boolean isMaschio;
     private final String luogoNascita;
-    private final HashMap<String, String> comuni;
-    private final HashMap<String, String> stati;
-    private final boolean isNatoEstero;
+    private final HashMap<String, String> luoghiNascitaRepository;
 
-
-    public codiceFiscaleCalcolatore(String nome, String cognome, LocalDate dataDiNascita, boolean isMaschio,String luogoNascita,
-                                    boolean natoEstero, String nomeFileComuni, String nomeFileStati)
+    /**
+     * Costruttore del codice fiscale
+     * @param nome Nome della persona
+     * @param cognome Cognome della persona
+     * @param dataDiNascita Data di nascita della persona in formato GG/MM/AAAA
+     * @param isMaschio Il sesso della persona
+     * @param luogoNascita Dove è nata la persona
+     * @param nomeFile Il nome del file da cui prende il "codice di nascita"
+     * @throws IOException Eccezione lanciata se non trova il file csv da cui prende il "codice di nascita"
+     */
+    public codiceFiscaleCalcolatore(String nome, String cognome, LocalDate dataDiNascita, boolean isMaschio,
+                                    String luogoNascita, String nomeFile, boolean isNatoEstero)
             throws IOException {
         this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
         this.isMaschio = isMaschio;
         this.luogoNascita = luogoNascita;
-        this.isNatoEstero = natoEstero;
-        this.comuni = ComuniRepository.getInstance(nomeFileComuni);
-        this.stati = StatiRepository.getInstance(nomeFileStati);
+        if (isNatoEstero){
+            this.luoghiNascitaRepository = LuoghiNascitaRepository.getInstanceStati(nomeFile);
+        } else {
+            this.luoghiNascitaRepository = LuoghiNascitaRepository.getInstanceComuni(nomeFile);
+        }
+
     }
 
     private String rimuoviSpazi (String s){
@@ -150,19 +162,17 @@ public class codiceFiscaleCalcolatore {
         return ritorno.toString();
     }
 
-    private String calcolaLuogo(){
-        if (this.isNatoEstero)
-            return stati.get(luogoNascita);
-        else
-            return comuni.get(luogoNascita);
+    private String calcolaLuogoNascita(){
+            return luoghiNascitaRepository.get(luogoNascita);
     }
 
     public String getCodiceFiscaleParziale(){
-        return calcolaCognome() + calcolaNome() + calcolaData() + calcolaLuogo();
+        return calcolaCognome() + calcolaNome() + calcolaData() + calcolaLuogoNascita();
     }
 
     public char calcolaCarattereControllo() {
         String codiceFiscaleParziale = getCodiceFiscaleParziale();
+        System.out.println("codice parziale: " + codiceFiscaleParziale);
 
         // Mappatura dei valori per posizioni dispari
         int[] valoriDispari = {1, 0, 5, 7, 9, 13, 15, 17, 19, 21,
@@ -200,11 +210,5 @@ public class codiceFiscaleCalcolatore {
         return getCodiceFiscaleParziale() + calcolaCarattereControllo();
     }
 
-    public Set<String> getElencoComuni (){
-        return this.comuni.keySet();
-    }
 
-    public Set<String> getStati() {
-        return stati.keySet();
-    }
 }

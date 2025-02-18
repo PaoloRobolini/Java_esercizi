@@ -3,7 +3,6 @@ package robolini.paolo.codicefiscale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -29,15 +28,26 @@ public class codiceFiscaleController {
 
     @FXML
     public void initialize() throws IOException {
-        cmbStatoNascita.getItems().add(StatiRepository.getInstance("stati.csv").keySet());
-        cmbComuneNascita.getItems().add(ComuniRepository.getInstance("comuni.csv").keySet());
         chbNatoEstero.setSelected(false);
         rdbMaschio.setSelected(true);
 
-        filtraCmb(cmbComuneNascita, ComuniRepository.getInstance("comuni.csv").keySet());
-        filtraCmb(cmbStatoNascita, StatiRepository.getInstance("stati.csv").keySet());
+        filtraCmb(cmbComuneNascita, LuoghiNascitaRepository.getInstanceComuni("comuni.csv").keySet());
+        filtraCmb(cmbStatoNascita, LuoghiNascitaRepository.getInstanceStati("stati.csv").keySet());
 
         vboxluogonascita.getChildren().remove(cmbStatoNascita);
+    }
+
+    private String getEventualError(String nome, String cognome, LocalDate dataDiNascita, String LuogoNascita){
+        if (nome.isEmpty()){
+            return "ERRORE: NOME VUOTO";
+        } else if (cognome.isEmpty()){
+            return "ERRORE: COGNOME VUOTO";
+        } else if (dataDiNascita == null){
+            return "ERRORE: DATA DI NASCITA NON VALIDA";
+        } else if (LuogoNascita == null){
+            return "ERRORE: LUOGO DI NASCITA NON VALIDO";
+        }
+        return "";
     }
 
     @FXML
@@ -73,27 +83,40 @@ public class codiceFiscaleController {
         String nome = txfNome.getText();
         String cognome = txfCognome.getText();
         boolean isMaschio = rdbMaschio.isSelected();
-        boolean natoEstero = chbNatoEstero.isSelected();
+        boolean isNatoEstero = chbNatoEstero.isSelected();
         LocalDate dataDiNascita = dtpDataDiNascita.getValue();
 
-        String LuogoNascita = (String)cmbComuneNascita.getValue();
+        String luogoNascita = (String)cmbComuneNascita.getValue();
+        String nomeFile = "comuni.csv";
 
-        if (natoEstero){
-            LuogoNascita = (String)cmbStatoNascita.getValue();
+        if (isNatoEstero){
+            luogoNascita = (String)cmbStatoNascita.getValue();
+            nomeFile = "stati.csv";
         }
 
-        codiceFiscaleCalcolatore calcolatore = new codiceFiscaleCalcolatore(nome, cognome, dataDiNascita, isMaschio, LuogoNascita, natoEstero,
-                "comuni.csv",
-                "stati.csv");
-        lblCodiceCalcolato.setText(calcolatore.calcolaCodiceFiscaleCompleto());
+        codiceFiscaleCalcolatore calcolatore =
+        new codiceFiscaleCalcolatore(nome, cognome, dataDiNascita, isMaschio, luogoNascita, nomeFile, isNatoEstero);
+
+
+        String eventualError = getEventualError(nome, cognome, dataDiNascita, luogoNascita);
+        if (eventualError.isEmpty()){
+            lblCodiceCalcolato.setText(calcolatore.calcolaCodiceFiscaleCompleto());
+            lblCodiceCalcolato.setStyle("-fx-text-fill: black; -fx-font-weight: normal;");
+        } else {
+            lblCodiceCalcolato.setText(eventualError);
+            lblCodiceCalcolato.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+        }
     }
 
     public void onNascitaEsteroClick(){
+        System.out.println("nato all'estero:" + natoEstero);
         natoEstero = !natoEstero;
         if (chbNatoEstero.isSelected()){
+            System.out.println("Aggiunti gli stati");
             vboxluogonascita.getChildren().remove(cmbComuneNascita);
             vboxluogonascita.getChildren().add(cmbStatoNascita);
         } else {
+            System.out.println("Aggiunti i comuni");
             vboxluogonascita.getChildren().remove(cmbStatoNascita);
             vboxluogonascita.getChildren().add(cmbComuneNascita);
         }
